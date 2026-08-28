@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio DOM</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; background: #f0f4f8; }
+    #caja { padding: 20px; background: white; border-radius: 10px; margin: 20px 0; }
+    .destacado { color: #2563eb; font-weight: bold; }
+    button { padding: 10px 16px; margin: 5px; border: none; border-radius: 6px; cursor: pointer; }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-danger { background: #ef4444; color: white; }
+  </style>
+</head>
+<body>
+
+  <h1 id="titulo">Ejercicio del DOM</h1>
+  
+  <div id="caja">
+    <p id="parrafo">Este texto va a cambiar.</p>
+  </div>
+
+  <button class="btn-primary" onclick="cambiarTexto()">Cambiar texto</button>
+  <button class="btn-primary" onclick="cambiarColor()">Cambiar color</button>
+  <button class="btn-primary" onclick="agregarElemento()">Agregar elemento</button>
+  <button class="btn-danger" onclick="eliminarUltimo()">Eliminar último</button>
+
+  <script>
+    // 1. Seleccionar elementos
+    const titulo = document.getElementById("titulo");
+    const parrafo = document.getElementById("parrafo");
+    const caja = document.getElementById("caja");
+
+    // 2. Cambiar texto
+    function cambiarTexto() {
+      parrafo.textContent = "¡Texto cambiado con JavaScript!";
+      titulo.textContent = "DOM Manipulado ✅";
+    }
+
+    // 3. Cambiar estilos
+    function cambiarColor() {
+      caja.style.backgroundColor = "#dbeafe";
+      parrafo.style.color = "#1e40af";
+      parrafo.style.fontSize = "18px";
+    }
+
+    // 4. Crear y agregar elemento
+    function agregarElemento() {
+      const nuevo = document.createElement("p");
+      nuevo.textContent = "Soy un párrafo nuevo ⭐";
+      nuevo.className = "destacado";
+      caja.appendChild(nuevo);
+    }
+
+    // 5. Evento con addEventListener (además del onclick)
+    document.querySelector(".btn-danger").addEventListener("click", () => {
+      console.log("Botón eliminar presionado");
+    });
+
+    // 6. Eliminar elemento
+    function eliminarUltimo() {
+      const hijos = caja.children;
+      if (hijos.length > 1) {
+        caja.removeChild(hijos[hijos.length - 1]);
+      }
+    }
+  </script>
+
+</body>
+</html>
