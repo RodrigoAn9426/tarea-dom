@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Pokédex</h1>
+
+  @if (loading) {
+    <div class="state-indicator loading">Cargando Pokémon...</div>
+  }
+
+  @if (errorMessage) {
+    <div class="state-indicator error">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage) {
+    <div class="grid">
+      @for (poke of pokemons; track poke.id) {
+        <div class="card" [class.blocked]="isBlocked(poke.id)" (click)="toggleBlock(poke.id)">
+          @if (isBlocked(poke.id)) {
+            <div class="block-overlay">✕</div>
+          }
+          <img [src]="poke.sprites.front_default" [alt]="poke.name" loading="lazy" />
+          <div class="card-body">
+            <h2>{{ poke.name }}</h2>
+            <div class="types">
+              @for (t of poke.types; track t.slot) {
+                <span [class]="'badge type-' + t.type.name">{{ t.type.name }}</span>
+              }
+            </div>
+
+            <p class="label">N.º de Pokédex</p>
+            <p class="value">#{{ poke.id }}</p>
+
+            <p class="label">Altura / Peso</p>
+            <p class="value">{{ poke.height / 10 }} m - {{ poke.weight / 10 }} kg</p>
+
+            <p class="label">Estadísticas base</p>
+            <ul class="stats">
+              @for (s of poke.stats; track s.stat.name) {
+                <li>{{ s.stat.name }}: <strong>{{ s.base_stat }}</strong></li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
